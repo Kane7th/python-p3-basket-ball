@@ -182,3 +182,84 @@ def game_dict():
             ]
         }
     }
+
+def num_points_per_game():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    return {player["name"]: player["points_per_game"] for player in players}
+
+# print(num_points_per_game())
+
+def player_age():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    return {player["name"]: player["age"] for player in players}
+
+# print (player_age())
+
+def team_colors():
+    teams = game_dict()
+    return {team["team_name"]: team["colors"] for team in teams.values()}
+
+# print(team_colors())
+
+def team_names():
+    teams = game_dict()
+    return [team["team_name"] for team in teams.values()]
+
+# print(team_names())
+
+def player_numbers():
+    teams = game_dict()
+    return {team["team_name"]: [player["number"] for player in team["players"]] for team in teams.values()}
+
+# print(player_numbers())
+
+def player_stats():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    return {player["name"]: {k: v for k, v in player.items() if k != "name"} for player in players}
+
+# print(player_stats())
+
+def average_rebounds_by_shoe_brand():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    shoe_brand_rebounds = {}
+
+    # Collect rebounds for each shoe brand
+
+    for player in players:
+        brand = player["shoe_brand"]
+        rebounds = player["rebounds_per_game"]
+        if brand not in shoe_brand_rebounds:
+            shoe_brand_rebounds[brand] = [rebounds]
+        else:
+            shoe_brand_rebounds[brand].append(rebounds)
+
+    # Calculate average and round to two decimal places
+
+    brand_averages = {}
+    for brand, rebounds_list in shoe_brand_rebounds.items():
+        average = sum(rebounds_list) / len(rebounds_list)
+        brand_averages[brand] = round(average, 2)
+
+    return brand_averages
+
+# print(average_rebounds_by_shoe_brand())
+
+def player_with_most_career_points():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    return max(players, key=lambda p: p["career_points"])["name"]
+
+print(player_with_most_career_points())
+
+def shared_jersey_numbers():
+    home_jerseys = {player["number"] for player in game_dict()["home"]["players"]}
+    away_jerseys = {player["number"] for player in game_dict()["away"]["players"]}
+    return home_jerseys & away_jerseys
+
+print(shared_jersey_numbers())
+
+def player_with_longest_name():
+    players = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+    longest_name_player = max(players, key=lambda p: len(p["name"]))
+    return longest_name_player["name"]
+
+print(player_with_longest_name())
