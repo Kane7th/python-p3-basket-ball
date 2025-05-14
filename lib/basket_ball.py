@@ -188,17 +188,23 @@ def all_players():
     data = game_dict()
     return data["home"]["players"] + data["away"]["players"]
 
+# print(all_players())
+
 # Function 1
 def num_points_per_game(player_name):
     for player in all_players():
         if player["name"] == player_name:
             return player["points_per_game"]
+        
+# print (num_points_per_game("Jarrett Allen"))
 
 # Function 2
 def player_age(player_name):
     for player in all_players():
         if player["name"] == player_name:
             return player["age"]
+
+# print (player_age("Jarrett Allen"))
 
 # Function 3
 def team_colors(team_name):
@@ -207,10 +213,14 @@ def team_colors(team_name):
         if game[team]["team_name"] == team_name:
             return game[team]["colors"]
 
+# print (team_colors("Cleveland Cavaliers"))
+
 # Function 4
 def team_names():
     game = game_dict()
     return [game["home"]["team_name"], game["away"]["team_name"]]
+
+# print (team_names())
 
 # Function 5
 def player_numbers(team_name):
@@ -219,11 +229,15 @@ def player_numbers(team_name):
         if game[team]["team_name"] == team_name:
             return [player["number"] for player in game[team]["players"]]
 
+# print (player_numbers("Cleveland Cavaliers"))
+
 # Function 6
 def player_stats(player_name):
     for player in all_players():
         if player["name"] == player_name:
             return player
+
+# print (player_stats("Jarrett Allen"))
 
 # Function 7
 def average_rebounds_by_shoe_brand():
@@ -235,4 +249,5 @@ def average_rebounds_by_shoe_brand():
 
     for brand, rebounds in brand_rebounds.items():
         average = sum(rebounds) / len(rebounds)
-        print(f"{brand}:  {average:.2f}") 
+
+        # print(f"{brand}: {average:.2f} rebounds per game")
